@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: mqtranslate lagcode widget selector
+Plugin Name: mqtranslate langcode widget selector
 Plugin URI: http://funkydrop.net/
-Version: 0.0.1
+Version: 1.0
 Author: Koldo Gonzalez
 Author URI: http://funkydrop.net/
 Description: Language widget selector that displays the lang code.
@@ -32,16 +32,37 @@ function qtrans_generateLangCodeSelect($id='') {
 		
 	echo '<ul class="qtrans_language_chooser" id="'.$id.'">';
 	foreach(qtrans_getSortedLanguages() as $language) {
+		$url = mqtrans_langcode_selector_get_url($url, $language);
 		$classes = array('lang-'.$language, 'lang-code');
 		if($language == $q_config['language'])
 			$classes[] = 'active';
-		echo '<li class="'. implode(' ', $classes) .'"><a href="'.qtrans_convertURL($url, $language).'"';
+		echo '<li class="'. implode(' ', $classes) .'"><a href="'. $url .'"';
 		// set hreflang
 		echo ' hreflang="'.$language.'" title="'.$q_config['language_name'][$language].'"';
-		echo '>'.$language.'</span></a></li>';
+		$selector = $language;
+		$selector = apply_filters( 'lang-code-selector-content', $selector );
+		echo '>'.$selector.'</span></a></li>';
 	}
 	echo "</ul><div class=\"qtrans_widget_end\"></div>";
-}	  	
+}
+
+/**
+ *  Function to get the url of a post
+ *  
+ *  IF qtranslate slug detected, it makes use of the class to get the URL
+ */
+function mqtrans_langcode_selector_get_url($url, $lang){
+	
+	// qtranslate slug compatibility
+	if (function_exists('is_plugin_active') && is_plugin_active('qtranslate-slug/qtranslate-slug.php')){
+		global $qtranslate_slug;
+		return $qtranslate_slug->get_current_url($lang);
+	}
+	// Default behaviour
+	else{
+		return qtrans_convertURL($url, $lang);
+	}
+}
 
 
 ///////////////////////////////////////////////////////////////////////
