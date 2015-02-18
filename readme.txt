@@ -1,4 +1,5 @@
 === Plugin Name ===
+Contributors: rufein
 Donate link: http://funkydrop.net/
 Tags: qtranslate, mqtranslate, widget, selector, language, switcher, qtranslate slug, qts 
 Requires at least: 4.0
