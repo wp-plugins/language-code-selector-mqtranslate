@@ -34,14 +34,14 @@ Yes. It's posible change the content of the selector. You only have to add a fil
 
 For example:
 
-`add_filter( 'lang-code-selector-content', 'test_lang_code_selector_content' ); '
-''
-' function test_lang_code_selector_content( $lang_code ){ '
-'	global $q_config;'
-'	$link_flag_url =  dirname(plugins_url()) . '/' . $q_config['flag_location'] . $q_config['flag'][$lang_code];'
-'   $link_flag = "<img widht=\"18\" height=\"12\" src=\"$link_flag_url\" alt=\"$lang_code\" />";'
-'   return $lang_code . $link_flag ;'
-'}'
+add_filter( 'lang-code-selector-content', 'test_lang_code_selector_content' ); 
+
+function test_lang_code_selector_content( $lang_code ){ 
+	global $q_config;
+	$link_flag_url =  dirname(plugins_url()) . '/' . $q_config['flag_location'] . $q_config['flag'][$lang_code];
+    $link_flag = "<img widht=\"18\" height=\"12\" src=\"$link_flag_url\" alt=\"$lang_code\" />";
+    return $lang_code . $link_flag ;
+}
 
 
 = How do i contribute to this plugin? =
