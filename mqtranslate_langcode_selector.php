@@ -28,10 +28,9 @@ function qtrans_generateLangCodeSelect($id='') {
 	else $url = '';
 	if($id=='') $id = 'mqtranslate';
 	$id .= '-chooser';
-	
 		
 	echo '<ul class="qtrans_language_chooser" id="'.$id.'">';
-	foreach(qtrans_getSortedLanguages() as $language) {
+	foreach( qtrans_getSortedLanguages() as $language ) {
 		$url = mqtrans_langcode_selector_get_url($url, $language);
 		$classes = array('lang-'.$language, 'lang-code');
 		if($language == $q_config['language'])
@@ -57,6 +56,9 @@ function mqtrans_langcode_selector_get_url($url, $lang){
 	if (function_exists('is_plugin_active') && is_plugin_active('qtranslate-slug/qtranslate-slug.php')){
 		global $qtranslate_slug;
 		return $qtranslate_slug->get_current_url($lang);
+	}
+	elseif(function_exists('qtranxf_convertURL')){
+		return qtranxf_convertURL($url, $lang);
 	}
 	// Default behaviour
 	else{
